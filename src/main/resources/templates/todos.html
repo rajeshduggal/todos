@@ -13,10 +13,13 @@
         <h2>Todos</h2>
 
         <div th:each="todo : ${todos}" class="todo">
-            <button>delete</button> | <span th:text="${todo.id}">ID</span> | <span th:text="${todo.title}">Title</span>
+            <button th:attr="hx-delete=@{/todos/{id}(id=${todo.id}) }" hx-confirm="Are you sure?" hx-trigger="click"
+                hx-target="closest .todo">delete</button> | <span th:text="${todo.id}">ID</span> | <span
+                th:text="${todo.title}">Title</span>
         </div>
     </div>
 
 
 </body>
+
 </html>

@@ -7,10 +7,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 public class TodosApplication {
@@ -37,6 +41,15 @@ class TodoController {
 		return "todos";
 	}
 
+	@ResponseBody
+	@DeleteMapping(produces = MediaType.TEXT_HTML_VALUE, path = "/{todoId}")
+	String delete(@PathVariable Integer todoId) {
+		this.todos
+				.stream()
+				.filter(t -> t.id().equals(todoId))
+				.forEach(this.todos::remove);
+		return "";
+	}
 }
 
 record Todo(Integer id, String title) {
