@@ -18,7 +18,15 @@
                 th:text="${todo.title}">Title</span>
         </div>
     </div>
+    <div id="todos-form" th:fragment="todos-form" hx-swap-oob="true">
 
+        <h2>Add a Todo</h2>
+
+        <input type="text" name="new-todo" id="new-todo" />
+
+        <button hx-post="/todos" hx-include="#new-todo" hx-target=".todos-list" hx-trigger="click">Add </button>
+
+    </div>
 
 </body>
 

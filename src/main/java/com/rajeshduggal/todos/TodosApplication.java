@@ -13,8 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HtmxResponse;
 
 @SpringBootApplication
 public class TodosApplication {
@@ -39,6 +43,18 @@ class TodoController {
 	String todos(Model model) {
 		model.addAttribute("todos", this.todos);
 		return "todos";
+	}
+
+	@PostMapping
+	HtmxResponse add(@RequestParam("new-todo") String newTodo,
+			Model model) {
+		this.todos.add(Todos.todo(newTodo));
+		model.addAttribute("todos", this.todos);
+		return HtmxResponse
+				.builder()
+				.view("todos :: todos")
+				.view("todos :: todos-form")
+				.build();
 	}
 
 	@ResponseBody
