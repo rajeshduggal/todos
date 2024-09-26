@@ -26,6 +26,11 @@ public class TodosApplication {
 class TodoController {
 	private final Set<Todo> todos = new ConcurrentSkipListSet<>(Comparator.comparingInt(Todo::id));
 
+	TodoController() {
+		for (var t : "read a book, go to the gym, have a nap".split(","))
+			this.todos.add(Todos.todo(t));
+	}
+
 	@GetMapping
 	String todos(Model model) {
 		model.addAttribute("todos", this.todos);
