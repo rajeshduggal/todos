@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+</head>
+
+<body>
+    <div th:fragment="todos" class="todos-list">
+        <h2>Todos</h2>
+
+        <div th:each="todo : ${todos}" class="todo">
+            <button>delete</button> | <span th:text="${todo.id}">ID</span> | <span th:text="${todo.title}">Title</span>
+        </div>
+    </div>
+
+
+</body>
+</html>
